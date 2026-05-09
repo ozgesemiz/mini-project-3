@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoboMunch – AI Artist Chatbot</title>
+  <meta name="description" content="RoboMunch: An AI-powered artist chatbot that generates stunning images and engages in creative conversation." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Background particles ── -->
+  <div class="bg-particles" aria-hidden="true">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- ── Header ── -->
+  <header class="header">
+    <div class="logo">
+      <img src="image 30.png" style="width:40px;height:40px;border-radius:50%;object-fit:cover;" alt="RoboMunch"/>
+      <h1 class="logo-text">RoboMunch</h1>
+      <span class="logo-tag">AI Artist</span>
+    </div>
+    <div class="status-bar">
+      <div class="status-dot" id="status-dot"></div>
+      <span class="status-label" id="status-label">Connecting...</span>
+    </div>
+  </header>
+
+  <!-- ── Main layout ── -->
+  <main class="main-layout">
+
+    <!-- ────────────────── LEFT: Image Generation ────────────────── -->
+    <section class="panel panel-image" aria-label="Image generation">
+      <div class="panel-header">
+        <span class="panel-icon">🖼️</span>
+        <h2 class="panel-title">Paint Studio</h2>
+      </div>
+
+      <!-- Prompt input -->
+      <div class="input-group" id="prompt-group">
+        <label for="prompt-input" class="input-label">Describe your masterpiece</label>
+        <div class="textarea-wrapper">
+          <textarea
+            id="prompt-input"
+            class="prompt-textarea"
+            placeholder="e.g. a neon-lit cyberpunk alley at midnight, rain, glowing signs, cinematic lighting, 4k..."
+            rows="3"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- Paint button -->
+      <button id="paint-btn" class="btn btn-paint" onclick="paintImage()">
+        <img src="image 31.png" style="width:22px;height:22px;" alt="paint"/>
+        <span class="btn-text">Paint!</span>
+      </button>
+
+      <!-- Image output -->
+      <div class="image-output-box" id="image-output-box">
+        <div class="image-placeholder" id="image-placeholder">
+          <div class="placeholder-icon">🎭</div>
+          <p class="placeholder-text">Your artwork will appear here</p>
+          <p class="placeholder-sub">Ask RoboMunch for a prompt idea first!</p>
+        </div>
+        <div class="image-loading" id="image-loading" style="display:none;">
+          <div class="spinner-ring"></div>
+          <p>Painting your masterpiece<span class="dots">...</span></p>
+        </div>
+        <img
+          id="generated-image"
+          class="generated-image"
+          src=""
+          alt="AI generated artwork"
+          style="display:none;"
+        />
+      </div>
+
+      <!-- Image actions (shown after generation) -->
+      <div class="image-actions" id="image-actions" style="display:none;">
+        <button class="btn btn-secondary" onclick="downloadImage()" id="download-btn">
+          ⬇️ Download
+        </button>
+        <button class="btn btn-secondary" onclick="clearImage()" id="clear-img-btn">
+          🗑️ Clear
+        </button>
+      </div>
+    </section>
+
+    <!-- ────────────────── RIGHT: Chat ────────────────── -->
+    <section class="panel panel-chat" aria-label="Chat with RoboMunch">
+      <div class="panel-header">
+        <img src="image 30.png" style="width:28px;height:28px;border-radius:50%;object-fit:cover;" alt="RoboMunch"/>
+        <h2 class="panel-title">Chat with RoboMunch</h2>
+        <button class="btn-reset" id="reset-btn" onclick="resetChat()" title="Clear conversation">
+          ↺
+        </button>
+      </div>
+
+      <!-- Chat output box -->
+      <div class="chat-output" id="chat-output" role="log" aria-live="polite">
+        <!-- Welcome message -->
+        <div class="chat-message bot-message" id="welcome-msg">
+          <div class="message-avatar"><img src="image 30.png" style="width:32px;height:32px;border-radius:50%;object-fit:cover;" alt="RoboMunch"/></div>
+          <div class="message-bubble">
+            <p>Hey there! I'm <strong>RoboMunch</strong> 🎨✨</p>
+            <p>I'm your creative AI artist companion! Ask me to suggest an image prompt, discuss art styles, or just chat. Then paint what I describe!</p>
+            <p><em>Try: "Suggest a cool prompt for a fantasy landscape!"</em></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat input area -->
+      <div class="chat-input-area">
+        <!-- Voice input button -->
+        <button
+          id="voice-btn"
+          class="btn btn-voice"
+          onclick="toggleVoice()"
+          title="Voice input (hold to speak)"
+          aria-label="Start voice input"
+        >
+          <img src="Mic.png" style="width:20px;height:20px;" alt="mic"/>
+        </button>
+
+        <!-- Text input -->
+        <div class="chat-input-wrapper">
+          <input
+            type="text"
+            id="chat-input"
+            class="chat-input"
+            placeholder="Type or speak your message..."
+            onkeydown="handleChatKey(event)"
+            aria-label="Chat message input"
+          />
+        </div>
+
+        <!-- Send button -->
+        <button
+          id="send-btn"
+          class="btn btn-send"
+          onclick="sendMessage()"
+          aria-label="Send message"
+        >
+          <img src="Send.png" style="width:20px;height:20px;" alt="send"/>
+        </button>
+      </div>
+
+      <!-- Voice status indicator -->
+      <div class="voice-status" id="voice-status" style="display:none;">
+        <div class="voice-wave">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span>Listening... speak now</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Toast notifications ── -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

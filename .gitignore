@@ -1,0 +1,35 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# HuggingFace model cache (large files, don't commit)
+.cache/
+models/
+
+# Environment
+.env
+*.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Generated images
+*.png
+*.jpg
+*.jpeg
+!frontend/assets/*.png
+
+# Logs
+*.log
