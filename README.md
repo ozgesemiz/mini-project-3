@@ -119,3 +119,6 @@ python3 -m http.server 3000
 | NVIDIA CUDA GPU | ✅ Fast (~5-10s) | ✅ Very fast (1-4 steps) |
 | Apple Silicon (MPS) | ✅ Medium (~30-60s) | ❌ Not supported |
 | CPU only | ✅ Slow (~2-5 min) | ❌ Not practical |
+
+
+file:///Users/ozgesemiz/Desktop/mini_project_3/frontend/index.html
