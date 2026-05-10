@@ -121,4 +121,4 @@ python3 -m http.server 3000
 | CPU only | ✅ Slow (~2-5 min) | ❌ Not practical |
 
 
-file:///Users/ozgesemiz/Desktop/mini_project_3/frontend/index.html
+file:///Users/ozgesemiz/Desktop/mini_project_3/frontend/index.htmlmd
