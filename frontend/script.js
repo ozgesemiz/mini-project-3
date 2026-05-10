@@ -239,7 +239,7 @@ function showTyping() {
   wrapper.id = id;
 
   wrapper.innerHTML = `
-    <div class="message-avatar">🤖</div>
+    <div class="message-avatar"><img src="image 30.png" style="width:32px;height:32px;border-radius:50%;object-fit:cover;" alt="RoboMunch"/></div>
     <div class="message-bubble">
       <div class="typing-dots">
         <span></span><span></span><span></span>
@@ -280,7 +280,7 @@ function appendBotWelcome() {
   wrapper.className = "chat-message bot-message";
   wrapper.id = "welcome-msg";
   wrapper.innerHTML = `
-    <div class="message-avatar">🤖</div>
+    <div class="message-avatar"><img src="image 30.png" style="width:32px;height:32px;border-radius:50%;object-fit:cover;" alt="RoboMunch"/></div>
     <div class="message-bubble">
       <p>Hey there! I'm <strong>RoboMunch</strong> 🎨✨</p>
       <p>I'm your creative AI artist companion! Ask me to suggest an image prompt, discuss art styles, or just chat. Then paint what I describe!</p>
