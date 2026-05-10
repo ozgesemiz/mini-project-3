@@ -198,7 +198,11 @@ function appendMessage(role, text) {
 
   const avatar = document.createElement("div");
   avatar.className = "message-avatar";
-  avatar.textContent = role === "user" ? "👤" : "🤖";
+  if (role === "user") {
+  avatar.textContent = "👤";
+} else {
+  avatar.innerHTML = '<img src="image 30.png" style="width:32px;height:32px;border-radius:50%;object-fit:cover;" alt="RoboMunch"/>';
+}
 
   const bubble = document.createElement("div");
   bubble.className = "message-bubble";
